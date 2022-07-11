@@ -27,7 +27,6 @@ const TemperaturesList = ({temperaturesPerHour}) => {
                 container
                 spacing={5}
                 direction="row"
-                alignItems="center"
                 justify="center"
             >
                 <Grid item xs={4}>

@@ -8,32 +8,32 @@ import UpdateIcon from '@mui/icons-material/Update';
 import LoadingCircle from "../loading/LoadingCircle";
 import * as React from "react";
 
-const TemperaturesChart = ({data}) => {
-    const [chosenStartDate, setChosenStartDate] = useState(new Date());
-    const [chosenEndDate, setChosenEndDate] = useState(new Date());
+const TemperaturesChart = () => {
+    const currentDay = new Date();
+    const currentDayMinusOne = new Date(currentDay.getTime() - 24 * 60 * 60 * 1000);
+    const [chosenStartDate, setChosenStartDate] = useState(currentDayMinusOne);
+    const [chosenEndDate, setChosenEndDate] = useState(currentDay);
     const [isLoading, setIsLoading] = useState(false);
     const [hourLabels, setHourLabels] = useState([]);
     const [dayLabels, setDayLabels] = useState([]);
-    data.slice(0).reverse().map(item => item.date_mesure_temp);
     const [displayedLabels, setDisplayedLabels] = useState(hourLabels);
+    const [displayedData, setDisplayedData] = useState([]);
 
     useEffect(
         () => {
-            setHourLabels(data.slice(0).reverse().map(item => item.heure_mesure_temp));
-            setDayLabels(data.slice(0).reverse().map(item => item.date_mesure_temp));
-            if (dayLabels.length > 2) {
-                setDisplayedLabels(hourLabels);
-            } else {
+            if (watercourseData.datasets[0].data.length > 72) {
                 setDisplayedLabels(dayLabels);
+            } else {
+                setDisplayedLabels(hourLabels);
             }
-        }, []
+        }, [dayLabels, hourLabels]
     );
 
     const watercourseData = {
         labels: displayedLabels,
         datasets: [{
             label: "Température (en °C)",
-            data: data.slice(0).reverse().map(item => item.resultat),
+            data: displayedData,
             borderColor: [
                 '#FF9406',
             ],
@@ -95,15 +95,11 @@ const TemperaturesChart = ({data}) => {
             .then(data => {
                 setIsLoading(false);
                 if (data.count === 0) {
-                    alert("Aucune donnée trouvée pour cette période");
-                }
-                watercourseData.datasets[0].data = data.data.slice(0).reverse().map(item => item.resultat);
-                setDayLabels(data.data.slice(0).reverse().map(item => item.date_mesure_temp));
-                setHourLabels(data.data.slice(0).reverse().map(item => item.heure_mesure_temp));
-                if (dayLabels.length > 2) {
-                    setDisplayedLabels(hourLabels);
+                    alert("Les mesures n'ont pas été prises sur toute la période sélectionnée");
                 } else {
-                    setDisplayedLabels(dayLabels);
+                    setDayLabels(data.data.slice(0).map(item => item.date_mesure_temp));
+                    setHourLabels(data.data.slice(0).map(item => item.heure_mesure_temp));
+                    setDisplayedData(data.data.slice(0).map(item => item.resultat));
                 }
             }).catch(error => {
             setIsLoading(false);
@@ -134,7 +130,7 @@ const TemperaturesChart = ({data}) => {
                     label={"Date fin mesure"}
                     chosenDate={chosenEndDate}
                     setChosenDate={setChosenEndDate}
-                    minDate={chosenStartDate}
+                    minDate={new Date(chosenStartDate.getTime() + (24 * 60 * 60 * 1000))}
                 />
             </Grid>
             <Grid sx={{marginTop: "25px"}}>

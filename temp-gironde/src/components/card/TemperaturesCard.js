@@ -15,7 +15,7 @@ const TemperaturesCard = ({data}) => {
     const subtractDays = (numOfDays = 1, date = new Date(data[0])) => {
         const dateCopy = new Date(date.getTime());
 
-        dateCopy.setDate(dateCopy.getDate() - numOfDays);
+        dateCopy.setDate(dateCopy.getDate() + numOfDays);
 
         return dateCopy;
     }
@@ -52,8 +52,8 @@ const TemperaturesCard = ({data}) => {
         fetch(apiKey +
             "?code_departement=33" +
             "&code_station=05025600" +
-            "&date_debut_mesure=" + formattedPreviousDate +
-            "&date_fin_mesure=" + data[0] +
+            "&date_debut_mesure=" + data[0] +
+            "&date_fin_mesure=" + formattedPreviousDate +
             "&fields=heure_mesure_temp,resultat,date_mesure_temp")
             .then(response => response.json())
             .then(resData => {

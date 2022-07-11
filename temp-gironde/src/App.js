@@ -9,7 +9,6 @@ import Wave from 'react-wavify';
 import styled from '@emotion/styled';
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import Media from "react-media";
 
 const App = () => {
 
@@ -56,24 +55,23 @@ const App = () => {
                     src="https://hubeau.eaufrance.fr/sites/default/files/api/demo/hydro/images/logo_hubeau_long_transp.png"
                     alt="logo"
                     className="logo"/>
-                <Grid container direction="column" alignContent="center">
-                    <Grid container direction={"row"} justifyContent={"space-evenly"}
-                          alignContent={"center"}>
-                        <Grid item xs={5}>
-                            <Grid container flexDirection={"column"} alignItems={"center"}>
-                                <Grid item xs="auto">
-                                    <Typography variant="h4" className={"typography"}>Températures cours
-                                        d'eau
-                                        Gironde</Typography>
-                                </Grid>
-                                <Grid item xs="auto" sx={{marginTop: "50px"}}>
-                                    <TemperaturesCarousel data={watercourse.data}/>
-                                </Grid>
+                <Grid container
+                      justifyContent={"space-evenly"}
+                      alignContent={"center"}>
+                    <Grid item lg={4} xs={12} className="temp-card">
+                        <Grid container flexDirection={"column"} alignItems={"center"}>
+                            <Grid item xs="auto" sx={{textAlign: "center"}}>
+                                <Typography variant="h4" className={"typography"}>Températures cours
+                                    d'eau
+                                    Gironde</Typography>
+                            </Grid>
+                            <Grid item xs="auto" sx={{marginTop: "50px"}}>
+                                <TemperaturesCarousel data={watercourse.data}/>
                             </Grid>
                         </Grid>
-                        <Grid item xs={4} sx={{zIndex: '4', marginTop: "75px"}}>
-                            <TemperaturesChart data={watercourse.data}/>
-                        </Grid>
+                    </Grid>
+                    <Grid item lg={4} xs={7} className="temp-chart" sx={{zIndex: '4', marginTop: "75px"}}>
+                        <TemperaturesChart/>
                     </Grid>
                 </Grid>
                 <WaveContainer level={90}>
