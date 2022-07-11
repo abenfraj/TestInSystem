@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import LoadingCircle from "../loading/LoadingCircle";
+import "../../App.css";
 
 const TemperaturesList = ({temperaturesPerHour}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,6 @@ const TemperaturesList = ({temperaturesPerHour}) => {
         <CardContent sx={{backgroundColor: "purple", opacity: "0.5"}}>
             <Grid
                 container
-                spacing={5}
                 direction="row"
                 justify="center"
             >

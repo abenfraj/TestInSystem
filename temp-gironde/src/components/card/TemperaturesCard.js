@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import MeasureInfo from "./MeasureInfo";
 import TemperaturesList from "./TemperaturesList";
 import LoadingCircle from "../loading/LoadingCircle";
+import "../../App.css";
 
 const TemperaturesCard = ({data}) => {
     const [temperaturesPerHour, setTemperaturesPerHour] = useState([]);
@@ -68,7 +69,7 @@ const TemperaturesCard = ({data}) => {
         return <Grid container justifyContent={"center"} alignContent={"center"}><LoadingCircle/></Grid>;
     }
     return (
-        <Card sx={{width: 500, maxWidth: 700, backgroundColor: "transparent"}}>
+        <Card className="card-item" sx={{width: 500, maxWidth: 700, backgroundColor: "transparent"}}>
             <MeasureInfo data={data} day={day}/>
             <CardMedia
                 component="img"

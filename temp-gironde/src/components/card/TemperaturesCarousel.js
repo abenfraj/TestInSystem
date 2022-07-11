@@ -1,6 +1,7 @@
 import Carousel from "react-material-ui-carousel";
 import TemperaturesCard from "./TemperaturesCard";
 import Grid from "@mui/material/Grid";
+import "../../App.css";
 
 const TemperaturesCarousel = ({data}) => {
 
@@ -32,6 +33,7 @@ const TemperaturesCarousel = ({data}) => {
                 backgroundColor: "#2590B7",
                 borderRadius: "5% / 5%"
             }}
+            className="temp-carousel"
             navButtonsAlwaysVisible={true}
             swipe={false}>
             {filteredDataByDay.map((watercourse, index) => (

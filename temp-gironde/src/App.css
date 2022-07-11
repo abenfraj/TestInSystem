@@ -59,4 +59,12 @@ body {
     .temp-card {
         padding-top: 110px;
     }
+
+    .temp-carousel {
+        width: 400px !important;
+    }
+
+    .card-item {
+        width: 400px !important;
+    }
 }
